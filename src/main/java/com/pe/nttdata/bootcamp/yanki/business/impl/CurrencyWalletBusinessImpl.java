@@ -1,9 +1,9 @@
 package com.pe.nttdata.bootcamp.yanki.business.impl;
 
-import com.pe.nttdata.bootcamp.yanki.business.CurrencyWalletService;
+import com.pe.nttdata.bootcamp.yanki.business.CurrencyWalletBusiness;
 import com.pe.nttdata.bootcamp.yanki.commons.OperationEnum;
-import com.pe.nttdata.bootcamp.yanki.dao.CurrencyWalletDao;
-
+import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
+import com.pe.nttdata.bootcamp.yanki.service.CurrencyWalletService;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,7 +15,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- *<b>Class</b>: {@link CurrencyWalletImpl}<br/>
+ *<b>Class</b>: {@link CurrencyWalletBusinessImpl}<br/>
  *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
  *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
  *
@@ -32,32 +32,32 @@ import reactor.core.publisher.Mono;
  */
 @Service
 @Slf4j
-public class CurrencyWalletImpl implements CurrencyWalletService {
+public class CurrencyWalletBusinessImpl implements CurrencyWalletBusiness {
 
   @Autowired
-  private CurrencyWalletDao currencyWalletDao;
+  private CurrencyWalletService currencyWalletService;
 
 
-    public CurrencyWalletImpl(CurrencyWalletDao currencyWalletDao) {
-        this.currencyWalletDao = currencyWalletDao;
+    public CurrencyWalletBusinessImpl(CurrencyWalletService currencyWalletService) {
+        this.currencyWalletService = currencyWalletService;
     }
 
-  private com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet movError;
+  private CurrencyWallet movError;
 
 
   @Override
-  public Flux<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> findAll() {
-    return currencyWalletDao.findAll();
+  public Flux<CurrencyWallet> findAll() {
+    return currencyWalletService.findAll();
   }
 
   @Override
-  public Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> findById(String id) {
-    return currencyWalletDao.findById(id);
+  public Mono<CurrencyWallet> findById(String id) {
+    return currencyWalletService.findById(id);
   }
 
   @Override
-  public Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> save(com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet currencyWallet) {
-    return currencyWalletDao.findByCustomerIdentityNumber(
+  public Mono<CurrencyWallet> save(CurrencyWallet currencyWallet) {
+    return currencyWalletService.findByCustomerIdentityNumber(
               currencyWallet.getCustomer().getIdentityNumber())
               .log("Entering the CurrencyWallet save operation.")
               .map(res -> {
@@ -72,9 +72,9 @@ public class CurrencyWalletImpl implements CurrencyWalletService {
                           .collect(Collectors.summingDouble(d -> d.getAmount()));
                 if (Double.compare(sum, operation.getCurrencyCoinAmount()) < 0) {
                   operation.getOperations().addAll(currencyWallet.getOperations());
-                  return currencyWalletDao.save(operation);
+                  return currencyWalletService.save(operation);
                 } else {
-                  movError = com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet.builder().build();
+                  movError =  CurrencyWallet.builder().build();
                   movError.setDescription("The amount exceeds what is allowed, please verify");
                   return Mono.just(movError);
                 }
@@ -82,9 +82,9 @@ public class CurrencyWalletImpl implements CurrencyWalletService {
               })
               .switchIfEmpty(Mono.defer(() -> {
                 currencyWallet.setStatus(OperationEnum.OK.value());
-                return currencyWalletDao.save(currencyWallet);
+                return currencyWalletService.save(currencyWallet);
               }).onErrorResume(error -> {
-                movError = com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet.builder().build();
+                movError = CurrencyWallet.builder().build();
                 movError.setDescription("Error found...: "
                         + error);
                 return Mono.just(movError);
@@ -98,20 +98,20 @@ public class CurrencyWalletImpl implements CurrencyWalletService {
    * reactivate Flux passing the id as a parameter.
    *
    * @param id {@link String}
-   * @param currencyWallet {@link com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet}
-   * @return {@link Mono}&lt;{@link com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet}&gt;
+   * @param currencyWallet {@link CurrencyWalletBusiness}
+   * @return {@link Mono}&lt;{@link CurrencyWalletBusiness}&gt;
    * @see String
    * @see Mono
    */
   @Override
-  public  Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> update(final String id, final com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet currencyWallet) {
-    return currencyWalletDao.findById(id)
+  public  Mono<CurrencyWallet> update(final String id, final CurrencyWallet currencyWallet) {
+    return currencyWalletService.findById(id)
             .map(Optional::of)
             .defaultIfEmpty(Optional.empty())
             .flatMap(optional -> {
               if (optional.isPresent()) {
                 currencyWallet.setId(new ObjectId(id));
-                return currencyWalletDao.save(currencyWallet);
+                return currencyWalletService.save(currencyWallet);
               }
               return Mono.empty();
             });
@@ -119,7 +119,7 @@ public class CurrencyWalletImpl implements CurrencyWalletService {
 
   @Override
   public Mono<Void> deleteById(String id) {
-    return currencyWalletDao.deleteById(id);
+    return currencyWalletService.deleteById(id);
   }
 
 }

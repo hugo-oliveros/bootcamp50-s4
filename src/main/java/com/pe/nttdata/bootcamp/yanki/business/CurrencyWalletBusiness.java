@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- *<b>Interface</b>: {@link CurrencyWalletService}<br/>
+ *<b>Interface</b>: {@link CurrencyWalletBusiness}<br/>
  *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
  *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
  *
@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono;
  */
 
 
-public interface CurrencyWalletService {
+public interface CurrencyWalletBusiness {
 
   Flux<CurrencyWallet> findAll();
 

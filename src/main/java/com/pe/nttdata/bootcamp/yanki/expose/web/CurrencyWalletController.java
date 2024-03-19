@@ -1,14 +1,13 @@
 package com.pe.nttdata.bootcamp.yanki.expose.web;
 
-import com.pe.nttdata.bootcamp.yanki.business.CurrencyWalletService;
+import com.pe.nttdata.bootcamp.yanki.business.CurrencyWalletBusiness;
 import com.pe.nttdata.bootcamp.yanki.dto.CurrencyWalletDto;
-import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
+
 import javax.validation.constraints.NotNull;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,8 +37,6 @@ import reactor.core.publisher.Mono;
  */
 @RestController
 @RequestMapping("currencyWallet/api/v1")
-@CrossOrigin("*")
-@Slf4j
 public class CurrencyWalletController {
 
   /**
@@ -47,7 +44,12 @@ public class CurrencyWalletController {
    * CtaPrincipalController ctaPrincipalDao
    **/
   @Autowired
-  private CurrencyWalletService currencyWalletService;
+  private CurrencyWalletBusiness currencyWalletService;
+
+
+  public CurrencyWalletController(CurrencyWalletBusiness currencyWalletService) {
+    this.currencyWalletService = currencyWalletService;
+  }
 
   /**
    * </p>
@@ -59,7 +61,7 @@ public class CurrencyWalletController {
    **/
   @GetMapping(value = "/all")
   @ResponseStatus(HttpStatus.OK)
-  public Flux<CurrencyWallet> getAll() {
+  public Flux<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> getAll() {
     return currencyWalletService.findAll();
   }
 
@@ -75,7 +77,7 @@ public class CurrencyWalletController {
    */
   @GetMapping(value = "/find/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Mono<CurrencyWallet> find(final @PathVariable("id") @NotNull String id) {
+  public Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> find(final @PathVariable("id") @NotNull String id) {
     return currencyWalletService.findById(id);
   }
 
@@ -93,7 +95,7 @@ public class CurrencyWalletController {
           consumes = MediaType.APPLICATION_JSON_VALUE,
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public Mono<CurrencyWallet> save(final @RequestBody @NotNull
+  public Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> save(final @RequestBody @NotNull
                                      CurrencyWalletDto currencyWalletDto) {
     return currencyWalletService.save(currencyWalletDto.getCurrencyWallet());
   }

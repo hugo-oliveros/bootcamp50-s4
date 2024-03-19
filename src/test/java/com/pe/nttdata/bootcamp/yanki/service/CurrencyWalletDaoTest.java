@@ -1,6 +1,6 @@
-package com.pe.nttdata.bootcamp.yanki.dao;
+package com.pe.nttdata.bootcamp.yanki.service;
 
-import com.pe.nttdata.bootcamp.yanki.business.impl.CurrencyWalletImpl;
+import com.pe.nttdata.bootcamp.yanki.business.impl.CurrencyWalletBusinessImpl;
 import com.pe.nttdata.bootcamp.yanki.commons.OperationEnum;
 import com.pe.nttdata.bootcamp.yanki.dto.CurrencyWalletDto;
 import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
@@ -24,10 +24,10 @@ import static org.mockito.Mockito.*;
 public class CurrencyWalletDaoTest {
 
     @InjectMocks
-    private CurrencyWalletImpl currencyWallet;
+    private CurrencyWalletBusinessImpl currencyWallet;
 
     @Mock
-    private CurrencyWalletDao currencyWalletDao;
+    private CurrencyWalletService currencyWalletDao;
 
     @BeforeEach
     public void init() {

@@ -1,12 +1,14 @@
-package com.pe.nttdata.bootcamp.yanki.dao;
+package com.pe.nttdata.bootcamp.yanki.service.repository;
 
 import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+
 /**
- *<b>interface</b>: {@link CurrencyWalletDao}<br/>
+ *<b>Class</b>: {@link CurrencyWalletRepository}<br/>
  *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
  *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
  *
@@ -21,18 +23,10 @@ import reactor.core.publisher.Mono;
  *</ul>
  *@version 1.0
  */
-
 @Repository
-public interface CurrencyWalletDao {
+public interface CurrencyWalletRepository extends ReactiveMongoRepository<CurrencyWallet, String> {
 
-  public Flux<CurrencyWallet>  findAll();
-
-  public Mono<CurrencyWallet> findById(String id);
-
-  public Mono<CurrencyWallet> findByCustomerIdentityNumber(String identityNumber);
-
-  public Mono<CurrencyWallet> save(CurrencyWallet currencyWallet);
-
-  public Mono<Void> deleteById(String id);
+  @Query(value = "{ 'customer.identityNumber': {$eq:?0}  } ")
+  Mono<CurrencyWallet> findByCustomerIdentityNumber(String identityNumber);
 
 }

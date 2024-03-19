@@ -1,14 +1,14 @@
-package com.pe.nttdata.bootcamp.yanki.dao.impl;
+package com.pe.nttdata.bootcamp.yanki.service;
 
-import com.pe.nttdata.bootcamp.yanki.dao.repository.CurrencyWalletRepository;
-import com.pe.nttdata.bootcamp.yanki.dao.CurrencyWalletDao;
+import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
+import com.pe.nttdata.bootcamp.yanki.service.repository.CurrencyWalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- *<b>Class</b>: {@link CurrencyWalletDaoImpl}<br/>
+ *<b>Class</b>: {@link CurrencyWalletService}<br/>
  *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
  *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
  *
@@ -24,10 +24,14 @@ import reactor.core.publisher.Mono;
  *@version 1.0
  */
 @Service
-public class CurrencyWalletDaoImpl implements CurrencyWalletDao{
+public class CurrencyWalletService {
 
   @Autowired
   private CurrencyWalletRepository currencyWalletRepository;
+
+  public CurrencyWalletService(CurrencyWalletRepository currencyWalletRepository) {
+    this.currencyWalletRepository = currencyWalletRepository;
+  }
 
 
   /**
@@ -35,12 +39,11 @@ public class CurrencyWalletDaoImpl implements CurrencyWalletDao{
    * Flux all elements from Mongo passing for
    * reactivate Flux passing the id as a parameter.
    *
-   * @return {@link Flux}&lt;{@link com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet}&gt;
+   * @return {@link Flux}&lt;{@link CurrencyWallet}&gt;
    * @see String
    * @see Flux
    */
-  @Override
-  public Flux<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> findAll() {
+  public Flux<CurrencyWallet> findAll() {
     return currencyWalletRepository.findAll();
   }
 
@@ -50,12 +53,11 @@ public class CurrencyWalletDaoImpl implements CurrencyWalletDao{
    * reactivate Flux passing the id as a parameter.
    *
    * @param id {@link String}
-   * @return {@link Mono}&lt;{@link com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet}&gt;
+   * @return {@link Mono}&lt;{@link CurrencyWallet}&gt;
    * @see String
    * @see Mono
    */
-  @Override
-  public Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> findById(String id) {
+  public Mono<CurrencyWallet> findById(String id) {
     return currencyWalletRepository.findById(id);
   }
 
@@ -66,12 +68,11 @@ public class CurrencyWalletDaoImpl implements CurrencyWalletDao{
    * reactivate Flux passing the id as a parameter.
    *
    * @param identityNumber {@link String}
-   * @return {@link Mono}&lt;{@link com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet}&gt;
+   * @return {@link Mono}&lt;{@link CurrencyWallet}&gt;
    * @see String
    * @see Mono
    */
-  @Override
-  public Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> findByCustomerIdentityNumber(String identityNumber){
+  public Mono<CurrencyWallet> findByCustomerIdentityNumber(String identityNumber) {
     return currencyWalletRepository.findByCustomerIdentityNumber(identityNumber);
   }
 
@@ -81,12 +82,11 @@ public class CurrencyWalletDaoImpl implements CurrencyWalletDao{
    * reactivate Flux passing the id as a parameter.
    *
    * @param currencyWallet {@link String}
-   * @return {@link Mono}&lt;{@link com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet}&gt;
+   * @return {@link Mono}&lt;{@link CurrencyWallet}&gt;
    * @see String
    * @see Mono
    */
-  @Override
-  public Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> save(com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet currencyWallet) {
+  public Mono<CurrencyWallet> save(CurrencyWallet currencyWallet) {
     return currencyWalletRepository.save(currencyWallet);
   }
 
@@ -101,7 +101,6 @@ public class CurrencyWalletDaoImpl implements CurrencyWalletDao{
    * @see Mono
    * @see Void
    */
-  @Override
   public Mono<Void> deleteById(String id) {
     return currencyWalletRepository.deleteById(id);
   }
