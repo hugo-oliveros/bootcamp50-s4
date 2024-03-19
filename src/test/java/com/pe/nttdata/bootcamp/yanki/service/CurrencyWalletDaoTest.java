@@ -27,7 +27,7 @@ public class CurrencyWalletDaoTest {
     private CurrencyWalletBusinessImpl currencyWallet;
 
     @Mock
-    private CurrencyWalletService currencyWalletDao;
+    private CurrencyWalletService currencyWalletService;
 
     @BeforeEach
     public void init() {
@@ -60,9 +60,9 @@ public class CurrencyWalletDaoTest {
         currencyWalle.setOperations(operations);
         currencyWalle.setDescription("");
 
-        when(currencyWalletDao.findAll()).thenReturn(Flux.just(currencyWalle));
+        when(currencyWalletService.findAll()).thenReturn(Flux.just(currencyWalle));
 
-        Flux<CurrencyWallet> result = currencyWalletDao.findAll();
+        Flux<CurrencyWallet> result = currencyWalletService.findAll();
 
         StepVerifier.create(result)
                 .expectNext(currencyWalle)
@@ -102,9 +102,9 @@ public class CurrencyWalletDaoTest {
         CurrencyWalletDto currencyWalletDto = new CurrencyWalletDto();
         currencyWalletDto.setCurrencyWallet(currencyWalle);
 
-        when(currencyWalletDao.save(currencyWalletDto.getCurrencyWallet())).thenReturn(Mono.just(currencyWalle));
+        when(currencyWalletService.save(currencyWalletDto.getCurrencyWallet())).thenReturn(Mono.just(currencyWalle));
 
-        Mono<CurrencyWallet> result = currencyWalletDao.save(currencyWalletDto.getCurrencyWallet());
+        Mono<CurrencyWallet> result = currencyWalletService.save(currencyWalletDto.getCurrencyWallet());
 
         StepVerifier.create(result)
                 .expectNext(currencyWalle)
@@ -117,8 +117,8 @@ public class CurrencyWalletDaoTest {
     @Test
     void delete() {
         final String _id = "65f8c54790c82e1a32b81182";
-        when(currencyWalletDao.deleteById(_id)).thenReturn(Mono.empty());
-        Mono<Void> resul = currencyWalletDao.deleteById(_id);
+        when(currencyWalletService.deleteById(_id)).thenReturn(Mono.empty());
+        Mono<Void> resul = currencyWalletService.deleteById(_id);
         StepVerifier.create(resul)
                 .expectComplete()
                 .verify();

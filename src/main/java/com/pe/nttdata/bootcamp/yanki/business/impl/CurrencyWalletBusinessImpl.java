@@ -1,6 +1,5 @@
 package com.pe.nttdata.bootcamp.yanki.business.impl;
 
-import com.pe.nttdata.bootcamp.yanki.business.CurrencyWalletBusiness;
 import com.pe.nttdata.bootcamp.yanki.commons.OperationEnum;
 import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
 import com.pe.nttdata.bootcamp.yanki.service.CurrencyWalletService;
@@ -9,7 +8,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -32,9 +30,9 @@ import reactor.core.publisher.Mono;
  */
 @Service
 @Slf4j
-public class CurrencyWalletBusinessImpl implements CurrencyWalletBusiness {
+public class CurrencyWalletBusinessImpl{
 
-  @Autowired
+
   private CurrencyWalletService currencyWalletService;
 
 
@@ -45,17 +43,17 @@ public class CurrencyWalletBusinessImpl implements CurrencyWalletBusiness {
   private CurrencyWallet movError;
 
 
-  @Override
+
   public Flux<CurrencyWallet> findAll() {
     return currencyWalletService.findAll();
   }
 
-  @Override
+
   public Mono<CurrencyWallet> findById(String id) {
     return currencyWalletService.findById(id);
   }
 
-  @Override
+
   public Mono<CurrencyWallet> save(CurrencyWallet currencyWallet) {
     return currencyWalletService.findByCustomerIdentityNumber(
               currencyWallet.getCustomer().getIdentityNumber())
@@ -98,12 +96,12 @@ public class CurrencyWalletBusinessImpl implements CurrencyWalletBusiness {
    * reactivate Flux passing the id as a parameter.
    *
    * @param id {@link String}
-   * @param currencyWallet {@link CurrencyWalletBusiness}
-   * @return {@link Mono}&lt;{@link CurrencyWalletBusiness}&gt;
+   * @param currencyWallet {@link CurrencyWallet}
+   * @return {@link Mono}&lt;{@link CurrencyWallet}&gt;
    * @see String
    * @see Mono
    */
-  @Override
+
   public  Mono<CurrencyWallet> update(final String id, final CurrencyWallet currencyWallet) {
     return currencyWalletService.findById(id)
             .map(Optional::of)
@@ -117,7 +115,7 @@ public class CurrencyWalletBusinessImpl implements CurrencyWalletBusiness {
             });
   }
 
-  @Override
+
   public Mono<Void> deleteById(String id) {
     return currencyWalletService.deleteById(id);
   }

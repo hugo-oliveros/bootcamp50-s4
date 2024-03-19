@@ -1,11 +1,10 @@
 package com.pe.nttdata.bootcamp.yanki.expose.web;
 
-import com.pe.nttdata.bootcamp.yanki.business.CurrencyWalletBusiness;
+import com.pe.nttdata.bootcamp.yanki.business.impl.CurrencyWalletBusinessImpl;
 import com.pe.nttdata.bootcamp.yanki.dto.CurrencyWalletDto;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,11 +42,11 @@ public class CurrencyWalletController {
    * .
    * CtaPrincipalController ctaPrincipalDao
    **/
-  @Autowired
-  private CurrencyWalletBusiness currencyWalletService;
+
+  private CurrencyWalletBusinessImpl currencyWalletService;
 
 
-  public CurrencyWalletController(CurrencyWalletBusiness currencyWalletService) {
+  public CurrencyWalletController(CurrencyWalletBusinessImpl currencyWalletService) {
     this.currencyWalletService = currencyWalletService;
   }
 
@@ -59,8 +58,7 @@ public class CurrencyWalletController {
    * for reactivate Flux and return Status OK.
    *
    **/
-  @GetMapping(value = "/all")
-  @ResponseStatus(HttpStatus.OK)
+  @RequestMapping(value = "/all")
   public Flux<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> getAll() {
     return currencyWalletService.findAll();
   }
