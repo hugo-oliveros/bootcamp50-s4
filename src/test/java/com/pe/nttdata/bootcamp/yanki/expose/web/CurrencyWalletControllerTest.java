@@ -29,7 +29,7 @@ public class CurrencyWalletControllerTest {
 
     @BeforeEach
     void setUp() {
-        webTestClient = WebTestClient.bindToController(currencyWalletImpl).build();
+      //  webTestClient = WebTestClient.bindToController(currencyWalletImpl).build();
     }
 
     @Test
