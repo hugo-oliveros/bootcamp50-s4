@@ -1,4 +1,4 @@
-package com.pe.nttdata.bootcamp.yanki.business.impl;
+package com.pe.nttdata.bootcamp.yanki.business;
 
 import com.pe.nttdata.bootcamp.yanki.commons.OperationEnum;
 import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;

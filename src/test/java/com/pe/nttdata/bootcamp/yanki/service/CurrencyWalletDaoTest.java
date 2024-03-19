@@ -1,6 +1,6 @@
 package com.pe.nttdata.bootcamp.yanki.service;
 
-import com.pe.nttdata.bootcamp.yanki.business.impl.CurrencyWalletBusinessImpl;
+import com.pe.nttdata.bootcamp.yanki.business.CurrencyWalletBusinessImpl;
 import com.pe.nttdata.bootcamp.yanki.commons.OperationEnum;
 import com.pe.nttdata.bootcamp.yanki.dto.CurrencyWalletDto;
 import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;

@@ -1,11 +1,6 @@
 package com.pe.nttdata.bootcamp.yanki.expose.web;
 
 
-import com.pe.nttdata.bootcamp.yanki.business.impl.CurrencyWalletBusinessImpl;
-import com.pe.nttdata.bootcamp.yanki.commons.OperationEnum;
-import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
-import com.pe.nttdata.bootcamp.yanki.model.entity.Customer;
-import com.pe.nttdata.bootcamp.yanki.model.entity.Operation;
 import com.pe.nttdata.bootcamp.yanki.service.CurrencyWalletService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,12 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import reactor.core.publisher.Flux;
-
-import java.util.ArrayList;
-import java.util.Date;
-
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CurrencyWalletControllerTest {

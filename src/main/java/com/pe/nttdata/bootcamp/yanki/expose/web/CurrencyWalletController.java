@@ -1,10 +1,9 @@
 package com.pe.nttdata.bootcamp.yanki.expose.web;
 
-import com.pe.nttdata.bootcamp.yanki.business.impl.CurrencyWalletBusinessImpl;
+import com.pe.nttdata.bootcamp.yanki.business.CurrencyWalletBusinessImpl;
+import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
 import com.pe.nttdata.bootcamp.yanki.dto.CurrencyWalletDto;
-
 import javax.validation.constraints.NotNull;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,7 +58,7 @@ public class CurrencyWalletController {
    *
    **/
   @RequestMapping(value = "/all")
-  public Flux<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> getAll() {
+  public Flux<CurrencyWallet> getAll() {
     return currencyWalletService.findAll();
   }
 
@@ -75,7 +74,7 @@ public class CurrencyWalletController {
    */
   @GetMapping(value = "/find/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> find(final @PathVariable("id") @NotNull String id) {
+  public Mono<CurrencyWallet> find(final @PathVariable("id") @NotNull String id) {
     return currencyWalletService.findById(id);
   }
 
@@ -93,7 +92,7 @@ public class CurrencyWalletController {
           consumes = MediaType.APPLICATION_JSON_VALUE,
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public Mono<com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet> save(final @RequestBody @NotNull
+  public Mono<CurrencyWallet> save(final @RequestBody @NotNull
                                      CurrencyWalletDto currencyWalletDto) {
     return currencyWalletService.save(currencyWalletDto.getCurrencyWallet());
   }
