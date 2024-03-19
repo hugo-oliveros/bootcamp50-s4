@@ -1,8 +1,8 @@
 package com.pe.nttdata.bootcamp.yanki.expose.web;
 
 import com.pe.nttdata.bootcamp.yanki.business.CurrencyWalletBusinessImpl;
-import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
 import com.pe.nttdata.bootcamp.yanki.dto.CurrencyWalletDto;
+import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
 import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
