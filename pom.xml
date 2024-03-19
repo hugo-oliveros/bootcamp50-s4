@@ -157,7 +157,7 @@
                     <excludes>
                         <exclude>**/target/**</exclude>
                         <exclude>**/dto/**</exclude>
-                        <exclude>**/model*/**</exclude>
+                        <exclude>**/com.pe.nttdata.bootcamp.yanki.model.entity*/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -187,7 +187,7 @@
                                         <limit implementation="org.jacoco.report.check.Limit">
                                             <counter>INSTRUCTION</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0%</minimum>
+                                            <minimum>0.19%</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

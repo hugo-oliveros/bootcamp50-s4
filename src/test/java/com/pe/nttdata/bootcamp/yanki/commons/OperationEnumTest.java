@@ -4,8 +4,11 @@ package com.pe.nttdata.bootcamp.yanki.commons;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class OperationEnumTest {
@@ -34,6 +37,21 @@ public class OperationEnumTest {
         assertThat(OperationEnum.SEND.fromValue("SEND").getValue(), is("SEND"));
         assertThat(OperationEnum.ERROR.fromValue("ERROR").getValue(), is("ERROR"));
         assertThat(OperationEnum.RECEIVE.fromValue("RECEIVE").getValue(),  is("RECEIVE"));
+    }
+
+    @Test
+    public void shouldOkException() {
+        assertThatIllegalArgumentException().isThrownBy(() -> OperationEnum.OK.fromValue("OK_ERROR"));
+    }
+
+    @Test
+    public void shouldSendException() {
+        assertThatIllegalArgumentException().isThrownBy(() -> OperationEnum.SEND.fromValue("SEND_ERROR"));
+    }
+
+    @Test
+    public void shouldErrorException() {
+        assertThatIllegalArgumentException().isThrownBy(() -> OperationEnum.ERROR.fromValue("ERROR_ERROR"));
     }
 
     @Test
