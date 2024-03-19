@@ -2,9 +2,11 @@ package com.pe.nttdata.bootcamp.yanki.dao;
 
 import com.pe.nttdata.bootcamp.yanki.business.impl.CurrencyWalletImpl;
 import com.pe.nttdata.bootcamp.yanki.commons.OperationEnum;
-import com.pe.nttdata.bootcamp.yanki.dao.CurrencyWalletDao;
+import com.pe.nttdata.bootcamp.yanki.dto.CurrencyWalletDto;
+import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
 import com.pe.nttdata.bootcamp.yanki.model.entity.Customer;
 import com.pe.nttdata.bootcamp.yanki.model.entity.Operation;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,31 +14,30 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
-
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CurrencyWalletControllerTest {
+public class CurrencyWalletDaoTest {
 
     @InjectMocks
-    private CurrencyWalletImpl currencyWalletService;
+    private CurrencyWalletImpl currencyWallet;
 
     @Mock
     private CurrencyWalletDao currencyWalletDao;
 
-
-
     @BeforeEach
-    void setUp() {
+    public void init() {
 
     }
 
     @Test
     void findAll() {
-        com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet currencyWalle = new com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet();
+        CurrencyWallet currencyWalle = new CurrencyWallet();
+
         currencyWalle.setStatus("OK");
         currencyWalle.setCurrencyCoinAmount(1000.0);
 
@@ -60,20 +61,28 @@ public class CurrencyWalletControllerTest {
         currencyWalle.setDescription("");
 
         when(currencyWalletDao.findAll()).thenReturn(Flux.just(currencyWalle));
+
+        Flux<CurrencyWallet> result = currencyWalletDao.findAll();
+
+        StepVerifier.create(result)
+                .expectNext(currencyWalle)
+                .expectComplete()
+                .verify();
+
     }
 
-    /*
     @Test
     void create() {
 
 
         CurrencyWallet currencyWalle = new CurrencyWallet();
+        currencyWalle.setId(new ObjectId("65e781f9d121b02f4b951c25"));
         currencyWalle.setStatus("OK");
         currencyWalle.setCurrencyCoinAmount(1000.0);
 
         Customer customer = new Customer();
         customer.setIdentityNumber("10520000");
-        customer.setEmail("hugo.oliveros@gmail.com");
+        customer.setEmail("xxxxx@gmail.com");
         customer.setMobileNumber("9573643");
         customer.setImei("0018273215765765673521");
 
@@ -93,21 +102,26 @@ public class CurrencyWalletControllerTest {
         CurrencyWalletDto currencyWalletDto = new CurrencyWalletDto();
         currencyWalletDto.setCurrencyWallet(currencyWalle);
 
+        when(currencyWalletDao.save(currencyWalletDto.getCurrencyWallet())).thenReturn(Mono.just(currencyWalle));
 
-        System.out.println( currencyWalletService.save(currencyWalletDto.getCurrencyWallet()) );
-        System.out.println( currencyWalletDto.getCurrencyWallet() );
-
-      //  when(currencyWalletService.save(currencyWalletDto.getCurrencyWallet())).thenReturn(Mono.just(currencyWalle));
-
-        Mono<CurrencyWallet> result = currencyWalletService.save(currencyWalletDto.getCurrencyWallet());
+        Mono<CurrencyWallet> result = currencyWalletDao.save(currencyWalletDto.getCurrencyWallet());
 
         StepVerifier.create(result)
                 .expectNext(currencyWalle)
                 .expectComplete()
                 .verify();
 
-        }*/
+        }
 
 
+    @Test
+    void delete() {
+        final String _id = "65f8c54790c82e1a32b81182";
+        when(currencyWalletDao.deleteById(_id)).thenReturn(Mono.empty());
+        Mono<Void> resul = currencyWalletDao.deleteById(_id);
+        StepVerifier.create(resul)
+                .expectComplete()
+                .verify();
+    }
 
 }

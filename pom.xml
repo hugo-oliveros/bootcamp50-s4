@@ -156,8 +156,8 @@
                 <configuration>
                     <excludes>
                         <exclude>**/target/**</exclude>
-                        <exclude>**/dto*/**</exclude>
-                        <exclude>**/entity*/**</exclude>
+                        <exclude>**/dto/**</exclude>
+                        <exclude>**/model*/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>

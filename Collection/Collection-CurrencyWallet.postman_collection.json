@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "6aa83d3d-1435-4c0f-aaa4-be37a67f1c55",
+		"name": "CurrencyWallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14041919",
+		"_collection_link": "https://hugooliveros2021.postman.co/workspace/BCK---InterBank~2d6f95fd-baf9-4e07-86ae-1c38c6e41de2/collection/14041919-6aa83d3d-1435-4c0f-aaa4-be37a67f1c55?action=share&source=collection_link&creator=14041919"
+	},
+	"item": [
+		{
+			"name": "all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/currencyWallet/api/v1/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"currencyWallet",
+						"api",
+						"v1",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/currencyWallet/api/v1/find/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"currencyWallet",
+						"api",
+						"v1",
+						"find",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currencyWallet\": {\n        \"status\": \"OK\",\n        \"currencyCoinAmount\": 1000,\n        \"customer\": {\n            \"identityNumber\": 10520000,\n            \"email\": \"hugo.oliveros@gmail.com\",\n            \"mobileNumber\": \"9573643\",\n            \"imei\": \"0018273215765765673521\"\n        },\n        \"operations\": [\n            {\n                \"status\": \"OK\",\n                \"time\": \"2018-12-10T13:49:51.141Z\",\n                \"paymentType\": \"SEND\",\n                \"amount\": 100.0\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/currencyWallet/api/v1/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"currencyWallet",
+						"api",
+						"v1",
+						"save"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

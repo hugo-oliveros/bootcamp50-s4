@@ -1,6 +1,7 @@
 package com.pe.nttdata.bootcamp.yanki.dao;
 
 import com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -20,6 +21,8 @@ import reactor.core.publisher.Mono;
  *</ul>
  *@version 1.0
  */
+
+@Repository
 public interface CurrencyWalletDao {
 
   public Flux<CurrencyWallet>  findAll();

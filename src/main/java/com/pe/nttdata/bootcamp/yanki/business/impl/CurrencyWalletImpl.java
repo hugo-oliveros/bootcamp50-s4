@@ -37,6 +37,11 @@ public class CurrencyWalletImpl implements CurrencyWalletService {
   @Autowired
   private CurrencyWalletDao currencyWalletDao;
 
+
+    public CurrencyWalletImpl(CurrencyWalletDao currencyWalletDao) {
+        this.currencyWalletDao = currencyWalletDao;
+    }
+
   private com.pe.nttdata.bootcamp.yanki.model.entity.CurrencyWallet movError;
 
 

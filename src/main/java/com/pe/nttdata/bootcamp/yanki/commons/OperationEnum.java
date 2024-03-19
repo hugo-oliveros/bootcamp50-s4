@@ -28,7 +28,7 @@ public enum OperationEnum {
     }
 
     @JsonCreator
-    public static OperationEnum fromValue(String value) {
+    public OperationEnum fromValue(String value) {
         for (OperationEnum e : OperationEnum.values()) {
             if (e.value.equalsIgnoreCase(value)) {
                 return e;
